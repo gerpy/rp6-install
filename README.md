@@ -29,11 +29,11 @@ The built-in Triangle and Lottes shaders scale well. Others produce banding/moir
 
 ## RetroArch shaders
 
-Only TV consoles are discussed here. We want shaders for Dreamcast and below. Scanlines make no sense for Dreamcast but they do for earlier consoles. Masks however make sense for every console since they "upscale" pixels in the proper way, introducing more details and colors.
+This discussion focuses exclusively on home consoles. We are targeting shaders for the Dreamcast and earlier generations. While scanlines don’t really make sense for the Dreamcast, they are essential for older systems. However, shadow masks are relevant for every console because they 'upscale' pixels correctly, introducing more detail and color depth.
 
-Here, we choose `crt-guest-advanced-fast` for its flexibility and how it handles non integer scaling (I want everything dispplayed full height). The `fast` is good enough and saves battery, heat and fan noise. I also use `crt-beam-simulator` so as to benefit from the 120Hz screen while not darkening the display as much as with regular BFI.
+We’ve selected crt-guest-advanced-fast for its flexibility and excellent handling of non-integer scaling (as I prefer a full-height display). The 'fast' version is more than adequate; it helps conserve battery life while reducing heat and fan noise. I also pair it with crt-beam-simulator to leverage the 120Hz screen without darkening the display as much as standard Black Frame Insertion (BFI) would.
 
-Early 3D consoles such as N64 or PS1 are often considered as better looking with a rendering upscale. I consider that multipliers par 2x look terrible but letting the core upscale up to 480p is OK. However, to do so and keeping the expected scanlines, the shader preset needs some tweaks.
+Early 3D consoles like the N64 or PS1 are often thought to look better with internal resolution upscaling. In my opinion, multipliers beyond 2x look terribly imbalanced, but letting the core upscale to 480p is acceptable. However, to achieve this while maintaining the intended scanline effect, the shader preset requires a few specific tweaks.
 
 ### Comprehensive CRT Calibration for 1080p OLED Handhelds
 
