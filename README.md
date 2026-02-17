@@ -39,12 +39,12 @@ Early 3D consoles such as N64 or PS1 are often considered as better looking with
 
 This finalized configuration is designed for a handheld console (1080p OLED, 5.5", 120Hz). It combines the temporal motion clarity of **crt-beam-simulator** (Pass 0) with the spatial signal granularity of **crt-guest-advanced-fast** (Main Pass). The settings ensure absolute robustness against **non-integer scaling**, atypical **Arcade PAR**, and aggressive **overscan crops**.
 
-### 1. Temporal Integration: CRT Beam Simulator (Pass 0)
+### Temporal Integration: CRT Beam Simulator (Pass 0)
 
 This shader must be **prepended** (placed at the top of the shader list) to simulate the electron gun's temporal behavior.
 *Requirement: Set "Shader Sub-frames" to **2** in RetroArch Settings > Video > Synchronization.*
 
-#### TABLE: CRT-BEAM-SIMULATOR (TEMPORAL BFI)
+#### CRT-BEAM-SIMULATOR (TEMPORAL BFI)
 
 | Parameter (UI Label) | Recommended Value | Technical Purpose |
 | --- | --- | --- |
@@ -53,13 +53,11 @@ This shader must be **prepended** (placed at the top of the shader list) to simu
 | `LCD Anti-Retention On/Off` | **0.00** | **OFF** for OLED. Prevents micro-stutter and removes unnecessary input lag. |
 | `Scan Direction` | **0.00** | Global BFI mode. Preferred for small 5.5" screens to reduce rolling scan fatigue. |
 
----
-
-### 2. Mode 1x: Native Resolution Configuration (NES, SNES, Genesis, DC)
+### Mode 1x: Native Resolution Configuration (NES, SNES, Genesis, DC)
 
 *Note: Dreamcast (480p) is handled via the Interlace Trigger to ensure a solid high-resolution image without flickering.*
 
-### TABLE 2.1: Mode 1x - COMMON PARAMETERS (ORDERED BY RA UI)
+#### COMMON PARAMETERS
 
 | Section / Parameter (UI Label) | Recommended Value | Technical Reason |
 | --- | --- | --- |
@@ -90,7 +88,7 @@ This shader must be **prepended** (placed at the top of the shader list) to simu
 | **** |  |  |
 | `Scanline Shape Dark Pixels` | **1.30** | Prevents scanlines from looking too harsh or thick. |
 
-#### TABLE 2.2: Mode 1x - MASK SPECIFIC PARAMETERS
+#### MASK SPECIFIC PARAMETERS
 
 | Parameter (UI Label) | Mask 6 (Pro ~360 TVL) | Mask 10 (Salon ~270 TVL) |
 | --- | --- | --- |
@@ -105,11 +103,11 @@ This shader must be **prepended** (placed at the top of the shader list) to simu
 
 ---
 
-### 3. Mode 2x: Core Upscaled Configuration (PS1, N64)
+### Mode 2x: Core Upscaled Configuration (PS1, N64)
 
 *Forces 240p-style thick scanlines and signal granularity on a 480p internal core buffer.*
 
-#### TABLE 3.1: Mode 2x - COMMON PARAMETERS (ORDERED BY RA UI)
+#### COMMON PARAMETERS
 
 | Section / Parameter (UI Label) | Recommended Value | Technical Reason |
 | --- | --- | --- |
@@ -132,7 +130,7 @@ This shader must be **prepended** (placed at the top of the shader list) to simu
 | **** |  |  |
 | `Scanline Shape Dark Pixels` | **1.45** | Widens scanline gaps for an authentic 240p aesthetic. |
 
-#### TABLE 3.2: Mode 2x - MASK SPECIFIC PARAMETERS
+#### MASK SPECIFIC PARAMETERS
 
 | Parameter (UI Label) | Mask 6 (Pro ~360 TVL) | Mask 10 (Salon ~270 TVL) |
 | --- | --- | --- |
@@ -147,9 +145,7 @@ This shader must be **prepended** (placed at the top of the shader list) to simu
 | `Slot Mask Width (0:Auto)` | **3.00** (**Locked Fixed**) | **4.00** (**Locked Fixed**) |
 | `Slot Mask Height: 2x1 or 4x1...` | **2.00** | **2.00** |
 
----
-
-### 4. Technical Performance & Stability Insights
+### Technical Performance & Stability Insights
 
 * **Arcade PAR Robustness:** The analytic beam integration in `guest-advanced-fast` automatically adjusts scanline and mask density to the 1080p viewport. This makes it inherently stable for Arcade games with unconventional aspect ratios (CPS1/2, etc.) or non-square pixels.
 * **Shadow Mask Transformation:** Activating `(Transform to) Shadow Mask` (1.00) alongside a `Slot Mask Height` of **2.00** creates a staggered grid. This setup is the most resistant to moiré during non-integer scaling, as it breaks the linear vertical alignment of the phosphors.
