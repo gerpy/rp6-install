@@ -35,6 +35,8 @@ We’ve selected crt-guest-advanced-fast for its flexibility and excellent handl
 
 Early 3D consoles like the N64 or PS1 are often thought to look better with internal resolution upscaling. In my opinion, multipliers beyond 2x look terribly imbalanced, but letting the core upscale to 480p is acceptable. However, to achieve this while maintaining the intended scanline effect, the shader preset requires a few specific tweaks.
 
+> The following is Gemini's
+
 ### Comprehensive CRT Calibration for 1080p OLED Handhelds
 
 This finalized configuration is designed for a handheld console (1080p OLED, 5.5", 120Hz). It combines the temporal motion clarity of **crt-beam-simulator** (Pass 0) with the spatial signal granularity of **crt-guest-advanced-fast** (Main Pass). The settings ensure absolute robustness against **non-integer scaling**, atypical **Arcade PAR**, and aggressive **overscan crops**.
