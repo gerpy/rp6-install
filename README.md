@@ -81,7 +81,7 @@ Parameters highlighted in **bold** are those that differ between the 1x and 2x v
 
 *Forces 240p-style thick scanlines and signal granularity on a 480p internal core buffer.*
 
-**CRT-2x-Shadow**
+[CRT-2x-Shadow](https://github.com/gerpy/rp6-install/blob/main/shaders/crt-2x-shadow.slangp)
 
 | Section | Parameter (UI Label) | Default | 2x Value | Explanation |
 | :--- | :--- | :--- | :--- | :--- |
@@ -116,7 +116,7 @@ These versions introduce a Beam Simulator (BFI/Subframe) pass as the first shade
 
 *Note: Dreamcast (480p) is handled via the Interlace Trigger to ensure a solid high-resolution image without flickering.*
 
-**CRT-1x-Beam-Shadow**
+[CRT-1x-Beam-Shadow](https://github.com/gerpy/rp6-install/blob/main/shaders/crt-1x-beam-shadow.slangp)
 
 | Section | Parameter (English Label) | Default | 1x-Beam Value | Explanation |
 | :--- | :--- | :--- | :--- | :--- |
@@ -147,7 +147,7 @@ These versions introduce a Beam Simulator (BFI/Subframe) pass as the first shade
 
 *Forces 240p-style thick scanlines and signal granularity on a 480p internal core buffer.*
 
-**CRT-2x-Beam-Shadow**
+[CRT-2x-Beam-Shadow](https://github.com/gerpy/rp6-install/blob/main/shaders/crt-2x-beam-shadow.slangp)
 
 | Section | Parameter (English Label) | Default | 2x-Beam Value | Explanation |
 | :--- | :--- | :--- | :--- | :--- |
