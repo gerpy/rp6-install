@@ -53,7 +53,7 @@ Parameters highlighted in **bold** are those that differ between the 1x and 2x v
 
 *Note: Dreamcast (480p) is handled via the Interlace Trigger to ensure a solid high-resolution image without flickering.*
 
-[CRT-1x-Shadow](shaders/crt-1x-shadow.slangp)
+[CRT-1x-Shadow]([shaders/crt-1x-shadow.slangp](https://github.com/gerpy/rp6-install/blob/main/shaders/crt-1x-shadow.slangp))
 
 | Section | Parameter (UI Label) | Default | 1x Value | Explanation |
 | :--- | :--- | :--- | :--- | :--- |
