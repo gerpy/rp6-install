@@ -41,115 +41,138 @@ Early 3D consoles like the N64 or PS1 are often thought to look better with inte
 
 This finalized configuration is designed for a handheld console (1080p OLED, 5.5", 120Hz). It combines the temporal motion clarity of **crt-beam-simulator** (Pass 0) with the spatial signal granularity of **crt-guest-advanced-fast** (Main Pass). The settings ensure absolute robustness against **non-integer scaling**, atypical **Arcade PAR**, and aggressive **overscan crops**.
 
-### Temporal Integration: CRT Beam Simulator (Pass 0)
+### Spatial-only shader
 
 This shader must be **prepended** (placed at the top of the shader list) to simulate the electron gun's temporal behavior.
 *Requirement: Set "Shader Sub-frames" to **2** in RetroArch Settings > Video > Synchronization.*
 
-#### CRT-BEAM-SIMULATOR (TEMPORAL BFI)
+The following tables show only the parameters that have been modified compared to the default values. 
+Parameters highlighted in **bold** are those that differ between the 1x and 2x versions.
 
-| Parameter (UI Label) | Recommended Value | Technical Purpose |
-| --- | --- | --- |
-| `Brightness vs Clarity (GAIN_VS_BLUR)` | **0.65** | Best balance for 120Hz; reduces motion blur while preserving OLED luminosity. |
-| `Gamma` | **2.40** | Matches the OLED black point to prevent gray banding or posterization. |
-| `LCD Anti-Retention On/Off` | **0.00** | **OFF** for OLED. Prevents micro-stutter and removes unnecessary input lag. |
-| `Scan Direction` | **0.00** | Global BFI mode. Preferred for small 5.5" screens to reduce rolling scan fatigue. |
-
-### Mode 1x: Native Resolution Configuration (NES, SNES, Genesis, DC)
+#### Mode 1x without beam : Native Resolution Configuration (NES, SNES, Genesis, DC)
 
 *Note: Dreamcast (480p) is handled via the Interlace Trigger to ensure a solid high-resolution image without flickering.*
 
-#### COMMON PARAMETERS
+**CRT-1x-Shadow**
 
-| Section / Parameter (UI Label) | Recommended Value | Technical Reason |
-| --- | --- | --- |
-| **** |  |  |
-| `Sega Brightness Fix` | **1.00 / 0.00** | **1.00 for Genesis/Saturn**; **0.00 for Nintendo/DC** (prevents white clipping). |
-| `Saturation Adjustment` | **1.20** | Counteracts desaturation from high Bright Boost levels. |
-| `Brightness Adjustment` | **1.05** | Final master gain for linear luminance fine-tuning. |
-| **** |  |  |
-| `Gamma Input` / `Gamma out` | **2.40 / 2.40** | Standard CRT gamma curve optimized for OLED contrast. |
-| **** |  |  |
-| `Interlace Trigger Resolution/VGA...` | **375.00** | Detects Dreamcast 480p to disable scanlines for a solid VGA look. |
-| `Interlace Mode` | **0.00** | Disables flicker for a stable upscaled high-res image. |
-| `Interlace Scanline Effect ('Laced...` | **1.00** | Fills 480p/VGA line gaps to create a solid, non-pixelated texture. |
-| **** |  |  |
-| `Horizontal sharpness` | **4.60** | Blends dithering patterns while preserving text legibility. |
-| `Substractive sharpness (1.0 recom...` | **1.00** | Removes white ringing/halos around sharp pixel edges. |
-| `Scanline Spike Removal` | **1.00** | **Critical:** Ensures scanline uniformity during non-integer scaling. |
-| **** |  |  |
-| `Max. Glow/M.Glow Value` | **0.15** | Subtle analog light leak typical of CRT phosphors. |
-| `Horizontal Bloom/Halation Sigma` | **0.80** | Controls the soft spread of light for a "glassy" texture. |
-| **** |  |  |
-| `Integer Scaling: Odd:Y, Even:'X'+Y` | **0.00** | Allows full screen height and robust overscan cropping. |
-| `CurvatureX / CurvatureY` | **0.00** | Keeps the grid flat to prevent moiré on 1080p matrices. |
-| **** |  |  |
-| `Lottes maskLight` | **1.85** | Weights mask transparency to regain OLED peak brightness. |
-| `Bright Boost Dark Pixels` | **1.55** | Heavily boosts dark details to combat BFI/Mask darkening. |
-| `Bright Boost Bright Pixels` | **1.15** | Increases highlight punch without washing out scanline structure. |
-| **** |  |  |
-| `Scanline Shape Dark Pixels` | **1.30** | Prevents scanlines from looking too harsh or thick. |
+| Section | Parameter (UI Label) | Default | 1x Value | Explanation |
+| :--- | :--- | :--- | :--- | :--- |
+| [ GAMMA OPTIONS ] | Gamma out | 2.40 | 2.20 | Adjusts the output color curve for standard displays. |
+| [ FILTERING OPTIONS ] | **Horizontal sharpness** | 5.20 | **3.50** | Controls the sharpness of pixel transitions on the X axis. |
+| [ FILTERING OPTIONS ] | **Substractive sharpness** | 0.50 | **1.50** | Enhances edge definition; higher values result in sharper pixels. |
+| [ FILTERING OPTIONS ] | Substractive sharpness Ringing | 0.00 | 0.50 | Adds a slight outline effect to sharp transitions. |
+| [ SCREEN OPTIONS ] | Curvature Shape | 0.25 | 0.05 | Modifies the geometry of the simulated CRT curvature. |
+| [ BRIGHTNESS SETTINGS ] | Mask Bloom | 0.00 | 0.70 | Simulates light bleeding from the phosphor mask. |
+| [ BRIGHTNESS SETTINGS ] | Bright Boost Dark Pixels | 1.40 | 1.60 | Increases visibility in dark areas to counteract mask darkening. |
+| [ BRIGHTNESS SETTINGS ] | Bright Boost Bright Pixels | 1.10 | 1.20 | Slightly increases brightness in highlights. |
+| [ SCANLINE OPTIONS ] | Scanline Type | 0.00 | 15.00 | Selects the beam profile for the horizontal lines. |
+| [ SCANLINE OPTIONS ] | Scanline Beam Shape Edges | 8.00 | 0.90 | Controls the softness of the scanline edges. |
+| [ SCANLINE OPTIONS ] | Scanline Falloff | 1.00 | 0.70 | Adjusts the light distribution within the scanline. |
+| [ CRT MASK OPTIONS ] | CRT Mask | 0.00 | 6.00 | Selects the "Shadow Mask" phosphor structure. |
+| [ CRT MASK OPTIONS ] | Mask Strength (0, 5-12) | 0.30 | 0.85 | Sets the overall opacity of the CRT phosphor grid. |
+| [ CRT MASK OPTIONS ] | Mask Layout: RGB or BGR | 0.00 | 1.00 | Sets the sub-pixel arrangement for the mask. |
+| [ CRT MASK OPTIONS ] | Slot Mask Strength | 0.00 | 0.65 | Sets the intensity of the vertical slot pattern. |
+| [ CRT MASK OPTIONS ] | Slot Mask Width | 0.00 | 3.00 | Defines the width of the slot mask pattern. |
+| [ CRT MASK OPTIONS ] | Smooth Masks in bright scanlines | 0.00 | 1.00 | Softens the mask pattern in high-luminance areas. |
+| [ CRT MASK OPTIONS ] | Mitigate Slotmask Interaction | 0.00 | 1.00 | Reduces moiré artefacts between mask and scanlines. |
+| [ DECONVERGENCE ] | Post Brightness | 1.00 | 1.40 | Final brightness multiplier applied to the image. |
 
-#### MASK SPECIFIC PARAMETERS
-
-| Parameter (UI Label) | Mask 6 (Pro ~360 TVL) | Mask 10 (Salon ~270 TVL) |
-| --- | --- | --- |
-| **** |  |  |
-| `CRT Mask:` | **6.00** (RGB) | **10.00** (RGBX) |
-| `Mask Strength` | **0.75** | **0.90** |
-| `CRT Mask Size` | **1.00** (Strict) | **1.00** (Strict) |
-| `(Transform to) Shadow Mask` | **1.00** (Active) | **1.00** (Active) |
-| `Mask Layout: RGB or BGR...` | **1.00** (OLED-BGR) | **1.00** (OLED-BGR) |
-| `Slot Mask Width (0:Auto)` | **0.00** (Auto) | **0.00** (Auto) |
-| `Slot Mask Height: 2x1 or 4x1...` | **2.00** (Anti-Moiré) | **2.00** (Anti-Moiré) |
-
----
-
-### Mode 2x: Core Upscaled Configuration (PS1, N64)
+#### Mode 2x without beam : Core 2x Upscaled Configuration (PS1, N64)
 
 *Forces 240p-style thick scanlines and signal granularity on a 480p internal core buffer.*
 
-#### COMMON PARAMETERS
+**CRT-2x-Shadow**
 
-| Section / Parameter (UI Label) | Recommended Value | Technical Reason |
-| --- | --- | --- |
-| **** |  |  |
-| `Sega Brightness Fix` | **0.00** | Generally not required for 3D-era systems. |
-| `Saturation Adjustment` | **1.30** | Boosts model vibrancy for upscaled 3D graphics. |
-| `Brightness Adjustment` | **1.10** | Linear gain boost for increased upscaled pixel density. |
-| **** |  |  |
-| `Interlace Trigger Resolution/VGA...` | **600.00** | Prevents the shader from removing scanlines at 480p. |
-| `Internal Resolution Y: 0.5...y-dow...` | **0.50** | **The Secret:** Resamples the 480p signal back to 240p scanline size. |
-| `High Resolution Scanlines (prepend...` | **1.00** | Enables correct beam dynamics for doubled core buffers. |
-| **** |  |  |
-| `Horizontal sharpness` | **3.80** | Blends 2x pixels for an analog, film-like CRT feel. |
-| `Scanline Spike Removal` | **1.00** | Fixes Moiré artifacts caused by core upscaling. |
-| **** |  |  |
-| `Horizontal Bloom/Halation Sigma` | **0.95** | Wider sigmas to "glue" 3D polygon edges into the CRT grid. |
-| **** |  |  |
-| `Lottes maskLight` | **1.95** | Essential for highlight vibrancy on upscaled content. |
-| `Bright Boost Dark Pixels` | **1.70** | Strong boost for deep black depth in 3D scenes (e.g., PS1 horror). |
-| **** |  |  |
-| `Scanline Shape Dark Pixels` | **1.45** | Widens scanline gaps for an authentic 240p aesthetic. |
+| Section | Parameter (UI Label) | Default | 2x Value | Explanation |
+| :--- | :--- | :--- | :--- | :--- |
+| [ GAMMA OPTIONS ] | Gamma out | 2.40 | 2.20 | Standardizes the output gamma. |
+| [ INTERLACING OPTIONS ] | **Interlace Trigger Resolution** | 375.0 | **600.0** | Threshold for activating interlacing logic. |
+| [ INTERLACING OPTIONS ] | **Interlace Mode** | 1.00 | **4.00** | Changes the field rendering method for interlaced content. |
+| [ INFO --> Internal Res ] | **Internal Resolution Y** | 0.00 | **2.00** | Doubles the vertical internal resolution (Supersampling). |
+| [ FILTERING OPTIONS ] | **Horizontal sharpness** | 5.20 | **2.50** | Softer than 1x to accommodate the higher resolution. |
+| [ FILTERING OPTIONS ] | Substractive sharpness Ringing | 0.00 | 0.50 | Adds haloing to sharp transitions. |
+| [ FILTERING OPTIONS ] | **Scanline Spike Removal** | 1.00 | **1.50** | Filters out harsh brightness spikes in scanlines. |
+| [ SCREEN OPTIONS ] | Curvature Shape | 0.25 | 0.05 | Flattened curvature profile. |
+| [ BRIGHTNESS SETTINGS ] | Mask Bloom | 0.00 | 0.70 | Light bleeding on the phosphor mask. |
+| [ BRIGHTNESS SETTINGS ] | Bright Boost Dark Pixels | 1.40 | 1.60 | Compensation for dark area loss. |
+| [ BRIGHTNESS SETTINGS ] | Bright Boost Bright Pixels | 1.10 | 1.20 | Highlight boost. |
+| [ SCANLINE OPTIONS ] | Scanline Type | 0.00 | 15.00 | Profile of the scanline. |
+| [ SCANLINE OPTIONS ] | Scanline Beam Shape Edges | 8.00 | 0.90 | Edge definition of the beam. |
+| [ SCANLINE OPTIONS ] | Scanline Falloff | 1.00 | 0.70 | Taper of the beam. |
+| [ CRT MASK OPTIONS ] | CRT Mask | 0.00 | 6.00 | Shadow Mask selection. |
+| [ CRT MASK OPTIONS ] | Mask Strength (0, 5-12) | 0.30 | 0.85 | Overall grid intensity. |
+| [ CRT MASK OPTIONS ] | Mask Layout: RGB or BGR | 0.00 | 1.00 | Sub-pixel orientation. |
+| [ CRT MASK OPTIONS ] | Slot Mask Strength | 0.00 | 0.65 | Intensity of the vertical pattern. |
+| [ CRT MASK OPTIONS ] | Slot Mask Width | 0.00 | 3.00 | Width of the slot pattern. |
+| [ CRT MASK OPTIONS ] | Smooth Masks in bright scanlines | 0.00 | 1.00 | Localized smoothing in highlights. |
+| [ CRT MASK OPTIONS ] | Mitigate Slotmask Interaction | 0.00 | 1.00 | Artefact mitigation. |
+| [ DECONVERGENCE ] | Post Brightness | 1.00 | 1.40 | Final brightness gain. |
 
-#### MASK SPECIFIC PARAMETERS
+### Temporal Integration with CRT Beam Simulator (Pass 0)
 
-| Parameter (UI Label) | Mask 6 (Pro ~360 TVL) | Mask 10 (Salon ~270 TVL) |
-| --- | --- | --- |
-| **** |  |  |
-| `CRT Mask:` | **6.00** | **10.00** |
-| `Mask Strength` | **0.80** | **0.95** |
-| `CRT Mask Size` | **1.00** | **1.00** |
-| `CRT Mask Zoom (+ mask width)` | **-1.00** (Fine grain) | **-1.00** (Fine grain) |
-| `CRT Mask Zoom Sharpen` | **0.65** | **0.75** |
-| `(Transform to) Shadow Mask` | **1.00** | **1.00** |
-| `Mask Layout: RGB or BGR...` | **1.00** | **1.00** |
-| `Slot Mask Width (0:Auto)` | **3.00** (**Locked Fixed**) | **4.00** (**Locked Fixed**) |
-| `Slot Mask Height: 2x1 or 4x1...` | **2.00** | **2.00** |
+These versions introduce a Beam Simulator (BFI/Subframe) pass as the first shader stage (shader0). In the tables below, values in bold represent parameters that either differ between the 1x and 2x beam versions or differ from the previous non-beam versions (where post_br was lower and beam parameters were absent).
 
-### Technical Performance & Stability Insights
+#### Mode 1x with beam : Native Resolution Configuration (NES, SNES, Genesis, DC)
 
-* **Arcade PAR Robustness:** The analytic beam integration in `guest-advanced-fast` automatically adjusts scanline and mask density to the 1080p viewport. This makes it inherently stable for Arcade games with unconventional aspect ratios (CPS1/2, etc.) or non-square pixels.
-* **Shadow Mask Transformation:** Activating `(Transform to) Shadow Mask` (1.00) alongside a `Slot Mask Height` of **2.00** creates a staggered grid. This setup is the most resistant to moiré during non-integer scaling, as it breaks the linear vertical alignment of the phosphors.
-* **Brightness Compensation:** Always use the `Bright Boost` and `maskLight` parameters before the master `Brightness Adjustment`. These tools expand luminance intelligently based on local contrast rather than applying a flat, destructive linear gain.
-* **Locked Mask Width (Mode 2x):** In Core 2x mode, "Auto" width (0.00) is unreliable. Manually fixing it to **3.0** (Mask 6) or **4.0** (Mask 10) locks the triads to the physical OLED subpixels, ensuring the texture never shifts regardless of internal resolution.
+*Note: Dreamcast (480p) is handled via the Interlace Trigger to ensure a solid high-resolution image without flickering.*
+
+**CRT-1x-Beam-Shadow**
+
+| Section | Parameter (English Label) | Default | 1x-Beam Value | Explanation |
+| :--- | :--- | :--- | :--- | :--- |
+| [ BEAM SIMULATOR ] | **Gain vs Blur** | N/A | **0.650000** | [cite_start]New parameter: Adjusts the trade-off between brightness gain and motion blur[cite: 21]. |
+| [ BEAM SIMULATOR ] | **LCD Anti-Retention Toggle** | N/A | **0.000000** | [cite_start]New parameter: Toggles a mechanism to prevent LCD image retention during BFI[cite: 21]. |
+| [ BEAM SIMULATOR ] | **Scan Direction** | N/A | **0.000000** | [cite_start]New parameter: Defines the direction of the simulated electron beam sweep[cite: 21]. |
+| [ GAMMA OPTIONS ] | Gamma out | 2.40 | 2.20 | Adjusts the output luminance curve. |
+| [ FILTERING OPTIONS ] | **Horizontal sharpness** | 5.20 | **3.50** | Controls horizontal pixel transitions (differs from 2x version). |
+| [ FILTERING OPTIONS ] | **Substractive sharpness** | 0.50 | **1.50** | Enhances edge definition (active in 1x version only). |
+| [ FILTERING OPTIONS ] | Substractive sharpness Ringing | 0.00 | 0.50 | Adds a slight halo effect to transitions. |
+| [ SCREEN OPTIONS ] | Curvature Shape | 0.25 | 0.05 | Flattened CRT curvature geometry. |
+| [ BRIGHTNESS SETTINGS ] | Mask Bloom | 0.00 | 0.70 | Light bleeding on the phosphor mask. |
+| [ BRIGHTNESS SETTINGS ] | Bright Boost Dark Pixels | 1.40 | 1.60 | Visibility boost for dark areas. |
+| [ BRIGHTNESS SETTINGS ] | Bright Boost Bright Pixels | 1.10 | 1.20 | Highlight brightness boost. |
+| [ SCANLINE OPTIONS ] | Scanline Type | 0.00 | 15.00 | Selection of the beam profile. |
+| [ SCANLINE OPTIONS ] | Scanline Beam Shape Edges | 8.00 | 0.90 | Softness of the scanline boundaries. |
+| [ SCANLINE OPTIONS ] | Scanline Falloff | 1.00 | 0.70 | Light taper within the scanline. |
+| [ CRT MASK OPTIONS ] | CRT Mask | 0.00 | 6.00 | Shadow Mask phosphor type selection. |
+| [ CRT MASK OPTIONS ] | Mask Strength | 0.30 | 0.85 | Intensity of the phosphor grid. |
+| [ CRT MASK OPTIONS ] | Mask Layout | 0.00 | 1.00 | Sub-pixel orientation (RGB/BGR). |
+| [ CRT MASK OPTIONS ] | Slot Mask Strength (Br/Dk) | 0.00 | 0.65 | Intensity of the vertical slot pattern. |
+| [ CRT MASK OPTIONS ] | Slot Mask Width | 0.00 | 3.00 | Width of the slot cells. |
+| [ CRT MASK OPTIONS ] | Smooth Masks in bright scanlines | 0.00 | 1.00 | Lissage in high-brightness areas. |
+| [ CRT MASK OPTIONS ] | Mitigate Slotmask Interaction | 0.00 | 1.00 | Reduces pattern interference. |
+| [ DECONVERGENCE / POST ] | **Post Brightness** | 1.00 | **1.5** | Final brightness gain (increased vs. previous non-beam versions). |
+
+#### Mode 2x with beam : Core 2x Upscaled Configuration (PS1, N64)
+
+*Forces 240p-style thick scanlines and signal granularity on a 480p internal core buffer.*
+
+**CRT-2x-Beam-Shadow**
+
+| Section | Parameter (English Label) | Default | 2x-Beam Value | Explanation |
+| :--- | :--- | :--- | :--- | :--- |
+| [ BEAM SIMULATOR ] | **Gain vs Blur** | N/A | **0.650000** | [cite_start]New parameter: Trade-off between brightness and motion clarity[cite: 24]. |
+| [ BEAM SIMULATOR ] | **LCD Anti-Retention Toggle** | N/A | **0.000000** | [cite_start]New parameter: Prevents image sticking on modern panels[cite: 24]. |
+| [ BEAM SIMULATOR ] | **Scan Direction** | N/A | **0.000000** | [cite_start]New parameter: Beam sweep direction[cite: 24]. |
+| [ GAMMA OPTIONS ] | Gamma out | 2.40 | 2.20 | Output luminance curve adjustment. |
+| [ INTERLACING OPTIONS ] | **Interlace Trigger Resolution** | 375.0 | **600.00** | Resolution threshold (active in 2x version only). |
+| [ INTERLACING OPTIONS ] | **Interlace Mode** | 1.00 | **4.00** | Field handling method (differs from 1x version). |
+| [ INFO --> Internal Res ] | **Internal Resolution Y** | 0.00 | **2.00** | Vertical supersampling (active in 2x version only). |
+| [ FILTERING OPTIONS ] | **Horizontal sharpness** | 5.20 | **2.50** | Softer transitions to balance high-res scaling. |
+| [ FILTERING OPTIONS ] | Substractive sharpness Ringing | 0.00 | 0.50 | Adds haloing to sharp edges. |
+| [ FILTERING OPTIONS ] | **Scanline Spike Removal** | 1.00 | **1.50** | Filters harsh brightness peaks (differs from 1x version). |
+| [ SCREEN OPTIONS ] | Curvature Shape | 0.25 | 0.05 | Flattened screen profile. |
+| [ BRIGHTNESS SETTINGS ] | Mask Bloom | 0.00 | 0.70 | Phosphor mask light diffusion. |
+| [ BRIGHTNESS SETTINGS ] | Bright Boost Dark Pixels | 1.40 | 1.60 | Compensation for dark details. |
+| [ BRIGHTNESS SETTINGS ] | Bright Boost Bright Pixels | 1.10 | 1.20 | Highlight boost. |
+| [ SCANLINE OPTIONS ] | Scanline Type | 0.00 | 15.00 | Horizontal beam profile. |
+| [ SCANLINE OPTIONS ] | Scanline Beam Shape Edges | 8.00 | 0.90 | Scanline edge sharpness. |
+| [ SCANLINE OPTIONS ] | Scanline Falloff | 1.00 | 0.70 | Beam light taper. |
+| [ CRT MASK OPTIONS ] | CRT Mask | 0.00 | 6.00 | Shadow Mask grid selection. |
+| [ CRT MASK OPTIONS ] | Mask Strength | 0.30 | 0.85 | Phosphor grid opacity. |
+| [ CRT MASK OPTIONS ] | Mask Layout | 0.00 | 1.00 | RGB/BGR orientation. |
+| [ CRT MASK OPTIONS ] | Slot Mask Strength (Br/Dk) | 0.00 | 0.65 | Slot pattern intensity. |
+| [ CRT MASK OPTIONS ] | Slot Mask Width | 0.00 | 3.00 | Cell width. |
+| [ CRT MASK OPTIONS ] | Smooth Masks in bright scanlines | 0.00 | 1.00 | Localized smoothing. |
+| [ CRT MASK OPTIONS ] | Mitigate Slotmask Interaction | 0.00 | 1.00 | Artefact reduction. |
+| [ DECONVERGENCE / POST ] | **Post Brightness** | 1.00 | **1.5** | Final brightness gain (increased vs. previous non-beam versions). |
