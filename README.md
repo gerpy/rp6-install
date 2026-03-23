@@ -93,13 +93,15 @@ Additionally, Guest includes a parameter specifically for Sega consoles (up to t
 
 > Better trust the ```slang``` files because I'm unsure I kept track of every single change. However, these are the settings corresponding to my approach, so you get the idea.
 
+All the shaders are available here : [shaders](shaders)
+
 #### CRT 1x with scanlines
 
 > Base shader
 >
 > Files : [crt-shadow1x.slangp](shaders/crt-shadow1x.slangp) 
 
-| Category          | Parameter                          | Value      | Visual Effect                                    |
+| Category          | Parameter                          | Value      | Comments                                   |
 | ----------------- | ---------------------------------- | ---------- | ------------------------------------------------ |
 | **COLOR TWEAKS**  | Contrast Adjustment                | **0.00**   | Maximum color fidelity.                          |
 | **COLOR TWEAKS**  | Saturation Adjustment              | **1.15**   | Compensates color loss from mask.                |
@@ -131,9 +133,9 @@ Additionally, Guest includes a parameter specifically for Sega consoles (up to t
 
 > Modifications on top of CRT 1x with scanlines
 >
-> File name : [crt-noscan.slangp](shaders/crt-noscan.slangp) and [crt-beam-noscan.slangp](shaders/crt-beam-noscan.slangp)
+> File name : [crt-noscan.slangp](shaders/crt-noscan.slangp) and [crt-beam-noscan.slangp](shaders/crt-beam-noscan.slangp) and [crt-ssaa-beam-noscan.slangp](shaders/crt-ssaa-beam-noscan.slangp) and [crt-ssaa-noscan.slangp](shaders/crt-ssaa-noscan.slangp)
 
-| Category          | Parameter                  | Value    | Justification                        |
+| Category          | Parameter                  | Value    | Comments                       |
 | ----------------- | -------------------------- | -------- | ------------------------------------ |
 | **SCANLINE**      | No-scanline mode           | **1.00** | Disables scanning, keeps mask.       |
 | **BRIGHTNESS**    | Bright Boost Dark Pixels   | **1.00** | Neutral: preserves AMOLED blacks.    |
@@ -147,9 +149,9 @@ Additionally, Guest includes a parameter specifically for Sega consoles (up to t
 
 > Modifications on top of any spatial shader to deal with temporal aspects
 >
-> File names : [crt-beam-shadow1x.slangp](shaders/crt-beam-shadow1x.slangp) and [crt-beam-noscan.slangp](shaders/crt-beam-noscan.slangp)
+> File names : [crt-beam-shadow1x.slangp](shaders/crt-beam-shadow1x.slangp) and [crt-beam-noscan.slangp](shaders/crt-beam-noscan.slangp) and [crt-ssaa-beam-noscan.slangp](shaders/crt-ssaa-beam-noscan.slangp)
 
-| Category           | Parameter                    | Value    | English Comments                                  |
+| Category           | Parameter                    | Value    | Comments                                  |
 | ------------------ | ---------------------------- | -------- | ------------------------------------------------- |
 | **BEAM SIMULATOR** | Brightness vs Clarity        | **0.75** | Tradeoff between light and motion blur reduction. |
 | **BEAM SIMULATOR** | Gamma                        | **2.40** | Matches the content's encoded gamma curve.        |
@@ -163,7 +165,11 @@ Additionally, Guest includes a parameter specifically for Sega consoles (up to t
 >
 > File names : [crt-beam-shadow2x.slangp](shaders/crt-beam-shadow2x.slangp) 
 
-| Category        | Parameter                     | Value    | English Comments                                 |
+| Category        | Parameter                     | Value    | Comments                                 |
 | --------------- | ----------------------------- | -------- | ------------------------------------------------ |
 | **INTERLACING** | Internal Resolution Y: 0.5... | **0.50** | Divides line density to simulate 240p look.      |
 | **INTERLACING** | High Resolution Scanlines     | **1.00** | **MANDATORY**: Activates vertical res filtering. |
+
+#### CRT 2x to 1x with antialiasing
+
+The shaders are [crt-ssaa-beam-noscan.slangp](shaders/crt-ssaa-beam-noscan.slangp) and [crt-ssaa-noscan.slangp](shaders/crt-ssaa-noscan.slangp)
