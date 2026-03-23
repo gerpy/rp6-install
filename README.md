@@ -91,3 +91,79 @@ Additionally, Guest includes a parameter specifically for Sega consoles (up to t
 
 ### Parameters
 
+> Better trust the ```slang``` files because I'm unsure I kept track of every single change. However, these are the settings corresponding to my approach, so you get the idea.
+
+#### CRT 1x with scanlines
+
+> Base shader
+>
+> Files : [crt-shadow1x.slangp](shaders/crt-shadow1x.slangp) 
+
+| Category          | Parameter                          | Value      | Visual Effect                                    |
+| ----------------- | ---------------------------------- | ---------- | ------------------------------------------------ |
+| **COLOR TWEAKS**  | Contrast Adjustment                | **0.00**   | Maximum color fidelity.                          |
+| **COLOR TWEAKS**  | Saturation Adjustment              | **1.15**   | Compensates color loss from mask.                |
+| **COLOR TWEAKS**  | Sega Brightness Fix                | **1.00**   | Only for Sega 8/16-bit consoles.                 |
+| **GAMMA OPTIONS** | Gamma Input                        | **2.40**   | Standard CRT reference.                          |
+| **GAMMA OPTIONS** | Gamma out                          | **2.20**   | Ideal balance for AMOLED.                        |
+| **INTERLACING**   | Interlace Trigger Resolution       | **400.00** | Threshold for automatic high-res switching.      |
+| **INTERLACING**   | Interlace Mode: OFF...             | **0.00**   | OFF: full progressive image.                     |
+| **FILTERING**     | Horizontal sharpness               | **4.00**   | Organic dithering blend.                         |
+| **FILTERING**     | Substractive sharpness             | **1.20**   | Locks bidirectional bleed.                       |
+| **FILTERING**     | Scanline Spike Removal             | **1.00**   | Vertical stability (non-integer).                |
+| **BRIGHTNESS**    | Bright Boost Dark Pixels           | **1.50**   | Recovers shadows under mask.                     |
+| **SCANLINE**      | Scanline Shape Dark Pixels         | **2.30**   | Wide and grey scanline gaps.                     |
+| **SCANLINE**      | Scanline Shape Bright Pixels       | **1.40**   | Thickens the black core in high-luminance areas. |
+| **SCANLINE**      | Scanline Falloff                   | **0.60**   | Defined edges without moire.                     |
+| **SCANLINE**      | Increased Bright Scanline Beam     | **0.85**   | Maintains structure in whites.                   |
+| **CRT MASK**      | CRT Mask: 0:CGWG, 1-4:Lottes, 5... | **6.00**   | Lottes/Shadow Mask base.                         |
+| **CRT MASK**      | Mask Strength (0, 5-12)            | **0.60**   | Balanced texture vs brightness.                  |
+| **CRT MASK**      | CRT Mask Boost                     | **1.40**   | Boosts simulated phosphors.                      |
+| **CRT MASK**      | CRT Mask Size                      | **1.00**   | Maximum 1080p density.                           |
+| **CRT MASK**      | (Transform to) Shadow Mask         | **1.00**   | Circular organic pattern.                        |
+| **CRT MASK**      | Mask Layout: RGB or BGR...         | **1.00**   | Physical AMOLED alignment.                       |
+| **CRT MASK**      | Lottes maskDark                    | **0.90**   | Brighter mask for global luminance.              |
+| **CRT MASK**      | Lottes maskLight                   | **1.60**   | Glow of active phosphors.                        |
+| **CRT MASK**      | Smooth Masks in bright scanlines   | **1.00**   | Eliminates banding on white.                     |
+| **DECONVERGENCE** | Post Brightness                    | **1.60**   | Final gain for AMOLED pop.                       |
+
+#### CRT without scanlines 
+
+> Modifications on top of CRT 1x with scanlines
+>
+> File name : [crt-noscan.slangp](shaders/crt-noscan.slangp) and [crt-beam-noscan.slangp](shaders/crt-beam-noscan.slangp)
+
+| Category          | Parameter                  | Value    | Justification                        |
+| ----------------- | -------------------------- | -------- | ------------------------------------ |
+| **SCANLINE**      | No-scanline mode           | **1.00** | Disables scanning, keeps mask.       |
+| **BRIGHTNESS**    | Bright Boost Dark Pixels   | **1.00** | Neutral: preserves AMOLED blacks.    |
+| **BRIGHTNESS**    | Bright Boost Bright Pixels | **1.00** | Avoids clipping on full image.       |
+| **COLOR TWEAKS**  | Contrast Adjustment        | **0.00** | Maximum fidelity for 3D textures.    |
+| **DECONVERGENCE** | Post Brightness            | **1.25** | Parity with 1x version brightness.   |
+| **CRT MASK**      | CRT Mask Boost             | **1.20** | Subtle texture without excess noise. |
+| **INTERLACING**   | Interlace Mode: OFF...     | **0.00** | OFF: full progressive image.         |
+
+#### CRT Beam Simulator
+
+> Modifications on top of any spatial shader to deal with temporal aspects
+>
+> File names : [crt-beam-shadow1x.slangp](shaders/crt-beam-shadow1x.slangp) and [crt-beam-noscan.slangp](shaders/crt-beam-noscan.slangp)
+
+| Category           | Parameter                    | Value    | English Comments                                  |
+| ------------------ | ---------------------------- | -------- | ------------------------------------------------- |
+| **BEAM SIMULATOR** | Brightness vs Clarity        | **0.75** | Tradeoff between light and motion blur reduction. |
+| **BEAM SIMULATOR** | Gamma                        | **2.40** | Matches the content's encoded gamma curve.        |
+| **BEAM SIMULATOR** | LCD Anti-Retention On/Off    | **0.00** | **OFF**: Disables rolling band .                  |
+| **BEAM SIMULATOR** | Raster Position Mod          | **0.00** | Sets the beam scan start to neutral position.     |
+| **BEAM SIMULATOR** | Scan Direction (0 = No Scan) | **1.00** | Standard horizontal raster scanning.              |
+
+#### CRT 2x with scanlines
+
+> Modifications on top of CRT 1x with scanlines
+>
+> File names : [crt-beam-shadow2x.slangp](shaders/crt-beam-shadow2x.slangp) 
+
+| Category        | Parameter                     | Value    | English Comments                                 |
+| --------------- | ----------------------------- | -------- | ------------------------------------------------ |
+| **INTERLACING** | Internal Resolution Y: 0.5... | **0.50** | Divides line density to simulate 240p look.      |
+| **INTERLACING** | High Resolution Scanlines     | **1.00** | **MANDATORY**: Activates vertical res filtering. |
