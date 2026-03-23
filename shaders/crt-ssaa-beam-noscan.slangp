@@ -1,0 +1,10 @@
+#reference "crt-noscan.slangp"
+
+# *** CRT-SSAA-NOSCAN by Tokumeino
+# *** For consoles such as Dreamcast
+# *** Downsamples high resolution from the core
+# *** Designed for an OLED 1080p/60Hz screen
+
+intres = "0.500000"
+downsample_levelx = "0.500000"
+downsample_levely = "0.500000"

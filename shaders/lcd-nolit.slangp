@@ -1,0 +1,33 @@
+shaders = "3"
+
+# *** LCD-NOLIT by Tokumeino
+# *** For consoles with a reflective screen such as GB, GBC
+# *** Adds remanence and a non-integer-scaling-friendly grid
+# *** For colorization, use cores 
+
+# --- [ TECHNICAL STRUCTURE FROM RETROARCH SLANGP FILES ] ---
+shader0 = "shaders_slang/pixel-art-scaling/shaders/sharp-shimmerless.slang"
+filter_linear0 = "true"
+
+shader1 = "shaders_slang/motionblur/shaders/response-time.slang"
+filter_linear1 = "false"
+scale_type1 = "source"
+scale1 = "1.000000"
+
+shader2 = "shaders_slang/handheld/shaders/simpletex_lcd/simpletex_lcd.slang"
+filter_linear2 = "true"
+scale_type2 = "viewport"
+scale2 = "1.000000"
+
+# --- [ TEXTURES ] ---
+textures = "BACKGROUND"
+BACKGROUND = "shaders_slang/handheld/shaders/simpletex_lcd/png/2k/textured_paper.png"
+
+# --- [ CUSTOM SETTINGS ] ---
+response_time = "0.444000"
+GRID_INTENSITY = "0.650000"
+GRID_WIDTH = "0.650000"
+GRID_BIAS = "0.600000"
+DARKEN_GRID = "0.000000"
+DARKEN_COLOUR = "0.050000"
+BACKGROUND_INTENSITY = "1.000000"

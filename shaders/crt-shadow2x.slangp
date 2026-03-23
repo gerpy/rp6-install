@@ -1,0 +1,9 @@
+#reference "crt-shadow1x.slangp"
+
+# *** CRT-SHADOW2X by Tokumeino
+# *** For consoles such as PS1 or N64
+# *** Takes 2x resolution from the core
+# *** Designed for an OLED 1080p/60Hz screen
+
+intres = "0.500000"
+hiscan = "1.000000"
