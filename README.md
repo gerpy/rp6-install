@@ -27,7 +27,41 @@ Shadow masks do a better job at smoothing while Aperture grilles produce a sharp
 
 The built-in Triangle and Lottes shaders scale well. Others produce banding/moiré artifacts. I choose **`Lottes`**, which resembles Dolphin's mask #2.
 
-## RetroArch shaders
+## RetroArch
+
+### LCD Shaders
+
+Based on my testing, the ```simpletex_lcd.slang``` shader performs excellently with non-integer scaling (to maximize the gameplay area). While the default settings aren't strictly realistic, they provide a very pleasing aesthetic. Since there are no built-in options to simulate the specific colorimetry of each handheld, this must be handled at the core level. Although dedicated shaders exist for this purpose, they would require creating a separate preset for every console.
+
+In the provided presets, motion blur is handled by ```response-time.slang``` to take full advantage of 120Hz displays. Consequently, any similar options in the core should be disabled. To ensure perfect pixel geometry without introducing shimmering during scrolling, I have placed ```sharp-shimmerless.slang``` at the beginning of the shader chain.
+
+I have created two main presets:
+- [lcd-nolit.glsl](shaders/lcd-nolit.slangp) for consoles such as GameBoy which have a reflective screen
+- [lcd-backlit.glsl](shaders/lcd-backlit.slangp) for consoles such as GBA which have a reflective screen
+
+For the backlit static parameters, one may start with the following settings :
+
+| **Parameter**            | **GBA**               | **DS**              | **PSP**                 |
+| ------------------------ | --------------------- | ------------------- | ----------------------- |
+| **Grid Intensity**       | **0.40**              | **0.25**            | **0.15**                |
+| **Grid Width**           | **0.50**              | **0.40**            | **0.20**                |
+| **Darken Colours**       | **0.20**              | **0.15**            | **0.10**                |
+| **Darken Grid**          | **1.00**              | **1.00**            | **1.00**                |
+| **Background Intensity** | **0.00**              | **0.00**            | **0.00**                |
+
+When it comes to remanence, I would recommend :
+
+| **System**        | **LCD Response Time** |
+| ------------------ | ---------------------- |
+| **Game Boy (GB)**  | **0.67**               |
+| **Game Boy Color** | **0.44**               |
+| **GBA (Moyenne)**  | **0.33**               |
+| **Nintendo DS**    | **0.22**               |
+| **PSP**            | **0.33**               |
+
+### CRT Shaders
+
+## RetroArch CRT shaders
 
 This discussion focuses exclusively on home consoles. We are targeting shaders for the Dreamcast and earlier generations. While scanlines don’t really make sense for the Dreamcast, they are essential for older systems. However, shadow masks are relevant for every console because they 'upscale' pixels correctly, introducing more detail and color depth.
 
