@@ -35,11 +35,11 @@ Based on my testing, the ```simpletex_lcd.slang``` shader performs excellently w
 
 In the provided presets, motion blur is handled by ```response-time.slang``` to take full advantage of 120Hz displays. Consequently, any similar options in the core should be disabled. To ensure perfect pixel geometry without introducing shimmering during scrolling, I have placed ```sharp-shimmerless.slang``` at the beginning of the shader chain.
 
-I have created two main presets:
-- [lcd-nolit.glsl](shaders/lcd-nolit.slangp) for consoles such as GameBoy which have a reflective screen
-- [lcd-backlit.glsl](shaders/lcd-backlit.slangp) for consoles such as GBA which have a reflective screen
+I have created two primary presets:
+- [lcd-nolit.glsl](shaders/lcd-nolit.slangp) designed for consoles like the original Game Boy, which feature non-backlit reflective screens
+- [lcd-backlit.glsl](shaders/lcd-backlit.slangp) designed for consoles like the GBA (SP/Micro), which utilize backlit displays
 
-For the backlit static parameters, one may start with the following settings :
+For the backlit static parameters, use the following settings as a baseline:
 
 | **Parameter**            | **GBA**               | **DS**              | **PSP**                 |
 | ------------------------ | --------------------- | ------------------- | ----------------------- |
@@ -60,6 +60,21 @@ When it comes to remanence, I would recommend :
 | **PSP**            | **0.33**               |
 
 ### CRT Shaders
+
+For CRT-based consoles, the Guest shader suite provides the optimal baseline. Given a 1080p handheld display, the "Fast" version is sufficient and prioritizes battery life. The core reference is crt-guest-advanced-fast.slangp.
+
+Two preset families were developed:
+- Static-only: Focused strictly on mask structure and scanlines.
+- Motion-enhanced: Identical logic but incorporating a crt-beam-simulator pass to improve motion clarity on 120Hz displays.
+
+The following engineering constraints were maintained:
+- Non-integer scaling at 1080p: Artifact-free performance across various source resolutions.
+- Minimalist processing: Strictly limited to a shadow mask (for dithering treatment) and scanlines where applicable.
+- Color accuracy: Colorimetry remains consistent with the raw, unshaded output.
+
+The scanline strategy involves widening the gaps between lines—including in bright areas—to mitigate scaling artifacts. To preserve overall luminance, the scanline intensity is slightly increased (lighter blacks).
+
+
 
 ## RetroArch CRT shaders
 
