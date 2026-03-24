@@ -114,10 +114,10 @@ All the shaders are available here : [shaders](shaders)
 | **FILTERING**     | Substractive sharpness             | **1.20**   | Locks bidirectional bleed.                       |
 | **FILTERING**     | Scanline Spike Removal             | **1.00**   | Vertical stability (non-integer).                |
 | **BRIGHTNESS**    | Bright Boost Dark Pixels           | **1.50**   | Recovers shadows under mask.                     |
-| **SCANLINE**      | Scanline Shape Dark Pixels         | **2.30**   | Wide and grey scanline gaps.                     |
-| **SCANLINE**      | Scanline Shape Bright Pixels       | **1.40**   | Thickens the black core in high-luminance areas. |
+| **SCANLINE**      | Scanline Shape Dark Pixels         | **2.20**   | Wide and grey scanline gaps.                     |
+| **SCANLINE**      | Scanline Shape Bright Pixels       | **1.20**   | Thickens the black core in high-luminance areas. |
 | **SCANLINE**      | Scanline Falloff                   | **0.60**   | Defined edges without moire.                     |
-| **SCANLINE**      | Increased Bright Scanline Beam     | **0.85**   | Maintains structure in whites.                   |
+| **SCANLINE**      | Increased Bright Scanline Beam     | **0.80**   | Maintains structure in whites.                   |
 | **CRT MASK**      | CRT Mask: 0:CGWG, 1-4:Lottes, 5... | **6.00**   | Lottes/Shadow Mask base.                         |
 | **CRT MASK**      | Mask Strength (0, 5-12)            | **0.60**   | Balanced texture vs brightness.                  |
 | **CRT MASK**      | CRT Mask Boost                     | **1.40**   | Boosts simulated phosphors.                      |
