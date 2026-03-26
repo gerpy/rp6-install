@@ -102,4 +102,4 @@ All the shaders are available here : [shaders](shaders)
 | <img src="screenshots/ms.png" width="250"> | <img src="screenshots/nes.png" width="250"> | <img src="screenshots/md.png" width="250"> |
 | :---: | :---: | :---: |
 | <img src="screenshots/snes.png" width="250"> | <img src="screenshots/pce.png" width="250"> | <img src="screenshots/neogeo.png" width="250"> |
-| <img src="screenshots/ps1.png" width="250"> | <img src="screenshots/n64.png" width="250"> | <img src="screenshots/dreamcast.png" width="250"> |
+| <img src="screenshots/ps1.png" width="250"> | <img src="screenshots/n64.png" width="250"> | <img src="screenshots/dc.png" width="250"> |
