@@ -1,0 +1,87 @@
+# *** CRT-NATIVE by Tokumeino
+# *** For 2D consoles such as SNES or MD
+# *** Takes 1x resolution from the core
+# *** Designed for an OLED 1080p/60Hz screen
+
+# --- [ TECHNICAL STRUCTURE ] ---
+
+shaders = "5"
+
+shader0 = "shaders_slang/crt/shaders/hyllian/support/multiLUT-linear-fast.slang"
+alias0 = ""
+wrap_mode0 = "clamp_to_border"
+mipmap_input0 = "false"
+filter_linear0 = "false"
+float_framebuffer0 = "false"
+srgb_framebuffer0 = "true"
+scale_type_x0 = "source"
+scale_x0 = "1.000000"
+scale_type_y0 = "source"
+scale_y0 = "1.000000"
+shader1 = "shaders_slang/crt/shaders/hyllian/crt-hyllian-base.slang"
+alias1 = "CRTPass"
+wrap_mode1 = "clamp_to_border"
+mipmap_input1 = "false"
+filter_linear1 = "false"
+float_framebuffer1 = "false"
+srgb_framebuffer1 = "true"
+scale_type_x1 = "viewport"
+scale_x1 = "1.000000"
+scale_type_y1 = "viewport"
+scale_y1 = "1.000000"
+shader2 = "shaders_slang/crt/shaders/hyllian/support/glow/threshold.slang"
+alias2 = ""
+wrap_mode2 = "clamp_to_border"
+mipmap_input2 = "false"
+filter_linear2 = "true"
+float_framebuffer2 = "false"
+srgb_framebuffer2 = "true"
+shader3 = "shaders_slang/crt/shaders/hyllian/support/glow/blur_horiz.slang"
+alias3 = ""
+wrap_mode3 = "clamp_to_border"
+mipmap_input3 = "true"
+filter_linear3 = "true"
+float_framebuffer3 = "false"
+srgb_framebuffer3 = "true"
+scale_type_x3 = "viewport"
+scale_x3 = "0.200000"
+scale_type_y3 = "viewport"
+scale_y3 = "1.000000"
+shader4 = "shaders_slang/crt/shaders/hyllian/support/glow/blur-glow-mask-geom.slang"
+alias4 = ""
+wrap_mode4 = "clamp_to_border"
+mipmap_input4 = "false"
+filter_linear4 = "true"
+float_framebuffer4 = "false"
+srgb_framebuffer4 = "true"
+scale_type_x4 = "viewport"
+scale_x4 = "1.000000"
+scale_type_y4 = "viewport"
+scale_y4 = "1.000000"
+
+# --- [ TEXTURES ] ---
+
+textures = "SamplerLUT1;SamplerLUT2"
+SamplerLUT1 = "shaders_slang/crt/shaders/hyllian/support/LUT/Sony_Wega_29FA310_no_gamma-v2.png"
+SamplerLUT1_mipmap = "false"
+SamplerLUT1_linear = "true"
+SamplerLUT1_wrap_mode = "clamp_to_border"
+SamplerLUT2 = "shaders_slang/crt/shaders/hyllian/support/LUT/Sony_Wega_29FA310_no_gamma.png"
+SamplerLUT2_mipmap = "false"
+SamplerLUT2_linear = "true"
+SamplerLUT2_wrap_mode = "clamp_to_border"
+
+# --- [ PARAMETERS ] ---
+
+# SSAA Downscaling
+
+BRIGHTBOOST = "1.100000"
+BEAM_MIN_WIDTH = "0.800000"
+SCANLINES_STRENGTH = "0.700000"
+SCANLINES_SHAPE = "0.000000"
+PHOSPHOR_LAYOUT = "4.000000"
+MASK_STRENGTH = "0.800000"
+MONITOR_SUBPIXELS = "1.000000"
+GLOW_ENABLE = "1.000000"
+
+

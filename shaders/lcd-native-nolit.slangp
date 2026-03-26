@@ -1,0 +1,38 @@
+# *** LCD-NOLIT by Tokumeino
+# *** For consoles with a reflective screen such as GB, GBC
+# *** Adds remanence and a non-integer-scaling-friendly grid
+# *** For colorization, use cores 
+
+# --- [ TECHNICAL STRUCTURE ] ---
+
+shaders = "2"
+
+# Response time
+shader0 = "shaders_slang/motionblur/shaders/response-time.slang"
+filter_linear0 = "false"
+scale_type0 = "source"
+scale0 = "1.000000"
+
+# Rendu Simpletex
+shader1 = "shaders_slang/handheld/shaders/simpletex_lcd/simpletex_lcd.slang"
+filter_linear1 = "true"
+scale_type1 = "viewport"
+scale1 = "1.000000"
+
+# --- [ TEXTURES ] ---
+
+textures = "BACKGROUND"
+BACKGROUND = "shaders_slang/handheld/shaders/simpletex_lcd/png/2k/textured_paper.png"
+
+# --- [ PARAMETERS ] ---
+
+# Response time
+response_time = "0.444000"
+
+# Rendu Simpletex
+GRID_INTENSITY = "0.400000"
+GRID_WIDTH = "0.400000"
+GRID_BIAS = "0.600000"
+DARKEN_GRID = "0.000000"
+DARKEN_COLOUR = "0.100000"
+BACKGROUND_INTENSITY = "0.600000"
