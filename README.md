@@ -40,7 +40,9 @@ I have created 3 primary presets:
 
 #### Samples
 
-| <img src="screenshots/gb.png" width="180"> | <img src="screenshots/gba.png" width="180"> | <img src="screenshots/gbc.png" width="180"> | <img src="screenshots/ngpc.png" width="180"> | <img src="screenshots/psp.png" width="180"> |
+| GB | GBA | GBC | NGPC | PSP |
+| :---: | :---: | :---: | :---: | :---: |
+| <img src="screenshots/gb.png" width="160"> | <img src="screenshots/gba.png" width="160"> | <img src="screenshots/gbc.png" width="160"> | <img src="screenshots/ngpc.png" width="160"> | <img src="screenshots/psp.png" width="160"> |
 
 There are shaders that alter colorimetry to match specific consoles. Theses shaders might ne prepened to my shaders. Some cores also manage palettes or color simulations. Either use one or the other solution, not both.
 
