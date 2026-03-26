@@ -29,9 +29,13 @@ The built-in Triangle and Lottes shaders scale well. Others produce banding/moir
 
 ### LCD Shaders
 
+#### Global approach
+
 Based on my testing, the ```simpletex_lcd.slang``` shader performs excellently with non-integer scaling (to maximize the gameplay area). While the default settings aren't strictly realistic, they provide a very pleasing aesthetic. Since there are no built-in options to simulate the specific colorimetry of each handheld, this must be handled at the core level. Although dedicated shaders exist for this purpose, they would require creating a separate preset for every console.
 
 In the provided presets, motion blur is handled by ```response-time.slang``` to take full advantage of 120Hz displays. Consequently, any similar options in the core should be disabled.
+
+#### Files
 
 I have created 3 primary presets:
 - [lcd-native-nolit.glsl](shaders/lcd-native-nolit.slangp) designed for consoles like the original Game Boy, which feature non-backlit reflective screens
@@ -82,13 +86,20 @@ The following engineering constraints were maintained:
 - Non-integer scaling at 1080p: Artifact-free performance across various source resolutions. I use the mask #4 on everythong with scanlines. Without scanlines, the #17 is just fine to me.
 - Color accuracy: Colorimetry remains mostly consistent with the raw, unshaded output.
 
-### Core resolution enhancements
+#### Core resolution enhancements
 
 Furthermore, I dislike the "clinical" look of legacy 3D games rendered at ultra-high resolutions; I find the imbalance between low-fidelity textures/polygons and high-precision rendering to be jarring. Consequently, my policy has been to create:
 
 - **```Native``` presets designed for ```1x``` core output**, allowing the Hyllian shader to handle "organic" interpolation via masks and scanlines (intended for Arcade, SNES, etc.).
 - **```SSAA2x``` presets for 3D consoles (PS1, N64)** rendered at ```2x``` by the core and then downscaled (softer Bicubic) before beeing processed by Hyllian to add scanlines matching the native vertical resolution.
 
-### Shader files
+#### Shader files
 
 All the shaders are available here : [shaders](shaders)
+
+#### Samples
+
+| <img src="screenshots/ms.png" width="250"> | <img src="screenshots/nes.png" width="250"> | <img src="screenshots/md.png" width="250"> |
+| :---: | :---: | :---: |
+| <img src="screenshots/snes.png" width="250"> | <img src="screenshots/pce.png" width="250"> | <img src="screenshots/neogeo.png" width="250"> |
+| <img src="screenshots/ps1.png" width="250"> | <img src="screenshots/n64.png" width="250"> | <img src="screenshots/dreamcast.png" width="250"> |
