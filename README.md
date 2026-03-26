@@ -33,12 +33,14 @@ The built-in Triangle and Lottes shaders scale well. Others produce banding/moir
 
 Based on my testing, the ```simpletex_lcd.slang``` shader performs excellently with non-integer scaling (to maximize the gameplay area). While the default settings aren't strictly realistic, they provide a very pleasing aesthetic. Since there are no built-in options to simulate the specific colorimetry of each handheld, this must be handled at the core level. Although dedicated shaders exist for this purpose, they would require creating a separate preset for every console.
 
-In the provided presets, motion blur is handled by ```response-time.slang``` to take full advantage of 120Hz displays. Consequently, any similar options in the core should be disabled. To ensure perfect pixel geometry without introducing shimmering during scrolling, I have placed ```sharp-shimmerless.slang``` at the beginning of the shader chain.
+In the provided presets, motion blur is handled by ```response-time.slang``` to take full advantage of 120Hz displays. Consequently, any similar options in the core should be disabled.
 
 I have created 3 primary presets:
 - [lcd-native-nolit.glsl](shaders/lcd-native-nolit.slangp) designed for consoles like the original Game Boy, which feature non-backlit reflective screens
 - [lcd-native-backlit.glsl](shaders/lcd-native-backlit.slangp) designed for consoles like the GBA (SP/Micro), which utilize backlit displays
 - [lcd-ssaa2x-backlit.glsl](shaders/lcd-ssaa2x-backlit.slangp) designed for 3D consoles like the PSP. This shader expects a x2 rendering from the core and downsamples to native resolution before rendering so a to antialias.
+
+There are shaders that alter colorimetry to match specific consoles. Theses shaders might ne prepened to my shaders. Some cores also manage palettes or color simulations. Either use one or the other solution, not both.
 
 For the backlit static parameters, use the following settings as a baseline:
 
