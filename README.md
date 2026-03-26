@@ -38,6 +38,12 @@ I have created 3 primary presets:
 - [lcd-native-backlit.glsl](shaders/lcd-native-backlit.slangp) designed for consoles like the GBA (SP/Micro), which utilize backlit displays
 - [lcd-ssaa2x-backlit.glsl](shaders/lcd-ssaa2x-backlit.slangp) designed for 3D consoles like the PSP. This shader expects a x2 rendering from the core and downsamples to native resolution before rendering so a to antialias.
 
+#### Samples
+
+| | | | | |
+| :---: | :---: | :---: | :---: | :---: |
+| <img src="screenshots/gb.png" width="180"> | <img src="screenshots/gba.png" width="180"> | <img src="screenshots/gbc.png" width="180"> | <img src="screenshots/ngpc.png" width="180"> | <img src="screenshots/psp.png" width="180"> |
+
 There are shaders that alter colorimetry to match specific consoles. Theses shaders might ne prepened to my shaders. Some cores also manage palettes or color simulations. Either use one or the other solution, not both.
 
 For the backlit static parameters, use the following settings as a baseline:
