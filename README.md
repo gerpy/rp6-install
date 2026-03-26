@@ -35,9 +35,10 @@ Based on my testing, the ```simpletex_lcd.slang``` shader performs excellently w
 
 In the provided presets, motion blur is handled by ```response-time.slang``` to take full advantage of 120Hz displays. Consequently, any similar options in the core should be disabled. To ensure perfect pixel geometry without introducing shimmering during scrolling, I have placed ```sharp-shimmerless.slang``` at the beginning of the shader chain.
 
-I have created two primary presets:
-- [lcd-nolit.glsl](shaders/lcd-nolit.slangp) designed for consoles like the original Game Boy, which feature non-backlit reflective screens
-- [lcd-backlit.glsl](shaders/lcd-backlit.slangp) designed for consoles like the GBA (SP/Micro), which utilize backlit displays
+I have created 3 primary presets:
+- [lcd-native-nolit.glsl](shaders/lcd-native-nolit.slangp) designed for consoles like the original Game Boy, which feature non-backlit reflective screens
+- [lcd-native-backlit.glsl](shaders/lcd-native-backlit.slangp) designed for consoles like the GBA (SP/Micro), which utilize backlit displays
+- [lcd-ssaa2x-backlit.glsl](shaders/lcd-ssaa2x-backlit.slangp) designed for 3D consoles like the PSP. This shader expects a x2 rendering from the core and downsamples to native resolution before rendering so a to antialias.
 
 For the backlit static parameters, use the following settings as a baseline:
 
@@ -67,7 +68,7 @@ The Hyllian CRT shader provides the optimal baseline to me : efficient, non-inte
 
 Two preset families were developed:
 - Static-only: Focused strictly on mask structure and scanlines.
-- Motion-enhanced (SLANG only): identical logic but incorporating a crt-beam-simulator pass to improve motion clarity on 120Hz displays.
+- Motion-enhanced (SLANG only, with **```beam```** in the shader filename): identical logic but incorporating a crt-beam-simulator pass to improve motion clarity on 120Hz displays.
 
 The following engineering constraints were maintained:
 - Non-integer scaling at 1080p: Artifact-free performance across various source resolutions. I use the mask #4 on everythong with scanlines. Without scanlines, the #17 is just fine to me.
@@ -77,8 +78,8 @@ The following engineering constraints were maintained:
 
 Furthermore, I dislike the "clinical" look of legacy 3D games rendered at ultra-high resolutions; I find the imbalance between low-fidelity textures/polygons and high-precision rendering to be jarring. Consequently, my policy has been to create:
 
-- **Native presets designed for ```1x``` core output**, allowing the Hyllian shader to handle "organic" interpolation via masks and scanlines (intended for Arcade, SNES, etc.).
-- **SSAA2x presets for 3D consoles (PS1, N64)** rendered at ```2x``` by the core and then downscaled (softer Bicubic) before beeing processed by Hyllian to add scanlines matching the native vertical resolution.
+- **```Native``` presets designed for ```1x``` core output**, allowing the Hyllian shader to handle "organic" interpolation via masks and scanlines (intended for Arcade, SNES, etc.).
+- **```SSAA2x``` presets for 3D consoles (PS1, N64)** rendered at ```2x``` by the core and then downscaled (softer Bicubic) before beeing processed by Hyllian to add scanlines matching the native vertical resolution.
 
 ### Shader files
 
