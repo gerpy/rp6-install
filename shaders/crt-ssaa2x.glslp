@@ -1,0 +1,44 @@
+# *** CRT-SSAA2X by Tokumeino
+# *** For 3D consoles such as N64
+# *** Takes 2x resolution from the core
+# *** Designed for an OLED 1080p/60Hz screen
+
+# --- [ TECHNICAL STRUCTURE ] ---
+
+shaders = "2"
+
+# Downsampling 2x -> 1x
+feedback_pass = "0"
+shader0 = "shaders_glsl/cubic/shaders/bicubic.glsl"
+alias0 = ""
+filter_linear0 = "true"
+scale_type_x0 = "source"
+scale_x0 = "0.5"
+scale_type_y0 = "source"
+scale_y0 = "0.5"
+
+# Hyllian 3D
+
+shader1 = "shaders_glsl/crt/shaders/hyllian/crt-hyllian-3d.glsl"
+alias1 = ""
+wrap_mode1 = "clamp_to_border"
+mipmap_input1 = "false"
+filter_linear1 = "true"
+float_framebuffer1 = "false"
+srgb_framebuffer1 = "true"
+
+# --- [ PARAMETERS ] ---
+
+# Bicubic downscaling
+B = "0.500000"
+C = "0.250000"
+
+# Hyllian
+BEAM_MIN_WIDTH = "0.800000"
+MASK_STRENGTH = "0.800000"
+CRT_MULRES_X = "1.000000"
+CRT_MULRES_Y = "1.000000"
+PHOSPHOR = "1.000000"
+COLOR_BOOST = "1.700000"
+SCANLINES_STRENGTH = "1.000000"
+BEAM_MIN_WIDTH = "0.800000"
