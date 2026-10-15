@@ -1,4 +1,4 @@
-> This was preliminary and there are issues here and there, so probably needs adaptations.
+> This was a preliminary version with a few rough edges, so some adjustments will likely be needed.
 
 # Install notes for the Retroid Pocket 6 handheld console
 
