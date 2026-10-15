@@ -1,3 +1,5 @@
+> This was preliminary and there are issues here and there, so probably needs adaptations.
+
 # Install notes for the Retroid Pocket 6 handheld console
 
 > Many things from my [RPM Install](https://github.com/gerpy/rpm-install) still stand. Changes mostly come from the larger, 16/9, 1080p and 120Hz screen.
